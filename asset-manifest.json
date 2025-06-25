@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.css": "/Feedback-System/static/css/main.f4788860.css",
+    "main.js": "/Feedback-System/static/js/main.fa4803ad.js",
+    "index.html": "/Feedback-System/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.f4788860.css",
+    "static/js/main.fa4803ad.js"
+  ]
+}
