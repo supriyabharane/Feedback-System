@@ -1,118 +1,198 @@
 # Lightweight Feedback System
 
-A modern feedback management system for internal team communication between managers and employees.
+A modern, full-stack feedback management system for internal team communication between managers and employees. Built with Python FastAPI backend and React TypeScript frontend.
 
-## 🌟 Features
+🌐 **Live Demo:** https://supriyabharane.github.io/Feedback-System
 
-### Core Features (MVP)
-- **Authentication & Roles**: Manager and Employee roles with secure login
-- **Feedback Submission**: Structured feedback with strengths, areas to improve, and sentiment
-- **Feedback Visibility**: Role-based access control and acknowledgment system
-- **Dashboard**: Comprehensive analytics for both managers and employees
+## 🚀 Quick Setup Instructions
 
-### Key Capabilities
-- ✅ Manager can submit feedback for team members
-- ✅ Employees can view and acknowledge feedback
-- ✅ Feedback history and timeline
-- ✅ Sentiment analysis (positive/neutral/negative)
-- ✅ Manager dashboard with team overview
-- ✅ Employee dashboard with feedback insights
-- ✅ Responsive modern UI
+### Option 1: Docker (Recommended)
+```bash
+git clone https://github.com/supriyabharane/Feedback-System.git
+cd Feedback-System
+docker-compose up --build
+```
+- Backend: http://localhost:8000
+- Frontend: http://localhost:3000
+- API Docs: http://localhost:8000/docs
 
-## 🛠 Tech Stack
+### Option 2: Local Development
+```bash
+# Clone repository
+git clone https://github.com/supriyabharane/Feedback-System.git
+cd Feedback-System
 
-### Backend
-- **Python FastAPI** - Modern, fast web framework
-- **SQLAlchemy** - Database ORM
-- **SQLite** - Database (easily configurable to PostgreSQL)
-- **JWT Authentication** - Secure token-based auth
-- **Pydantic** - Data validation and serialization
+# Backend setup
+cd backend
+python -m venv venv
+venv\Scripts\activate  # Windows
+# source venv/bin/activate  # Mac/Linux
+pip install -r requirements.txt
+python main.py
 
-### Frontend
-- **React 18** - Modern React with hooks
-- **TypeScript** - Type safety and better DX
-- **Tailwind CSS** - Utility-first CSS framework
-- **React Router** - Client-side routing
-- **Axios** - HTTP client
-- **React Hook Form** - Form handling
+# Frontend setup (new terminal)
+cd frontend
+npm install
+npm start
+```
 
-### DevOps
-- **Docker** - Containerization
-- **Docker Compose** - Multi-service orchestration
+### Option 3: VS Code Tasks
+Open in VS Code and use these predefined tasks:
+- `Ctrl+Shift+P` → "Tasks: Run Task"
+- Select "Start Feedback System" for both backend and frontend
 
-## 🚀 Quick Start
+## 🛠 Technology Stack & Design Decisions
 
-### Prerequisites
-- Node.js 16+ and npm
-- Python 3.11+
-- Docker (optional)
+### Backend Architecture
+- **FastAPI** - High-performance async web framework with automatic API documentation
+- **SQLAlchemy ORM** - Database abstraction layer with type safety
+- **SQLite** - Lightweight database for development (easily upgradable to PostgreSQL)
+- **JWT Authentication** - Stateless, secure token-based authentication
+- **Pydantic Models** - Runtime type checking and data validation
+- **CORS Support** - Cross-origin resource sharing for frontend integration
 
-### Backend Setup
+### Frontend Architecture  
+- **React 18 + TypeScript** - Type-safe component-based UI development
+- **Tailwind CSS** - Utility-first styling for rapid UI development
+- **React Router** - Client-side routing with protected routes
+- **Axios** - Promise-based HTTP client with interceptors
+- **React Hook Form** - Performant forms with minimal re-renders
+- **React Toastify** - User-friendly notifications
 
-1. **Navigate to backend directory**
-   ```bash
-   cd backend
-   ```
+### Key Design Decisions
 
-2. **Create virtual environment**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
+#### 1. **Monorepo Structure**
+- Separate `backend/` and `frontend/` directories
+- Shared configuration files at root level
+- Independent deployment strategies
 
-3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+#### 2. **Role-Based Architecture**
+- Two distinct user roles: Manager and Employee
+- Hierarchical relationship (Employee belongs to Manager)
+- Role-specific UI components and API endpoints
 
-4. **Run the server**
-   ```bash
-   python main.py
-   ```
+#### 3. **Security Implementation**
+- JWT tokens with expiration
+- Password hashing with bcrypt
+- Role-based access control (RBAC)
+- Protected API routes and frontend pages
 
-The API will be available at `http://localhost:8000`
+#### 4. **Database Design**
+```sql
+Users: id, email, name, role, manager_id, password_hash
+Feedback: id, manager_id, employee_id, strengths, areas_to_improve, sentiment, acknowledged
+```
 
-### Frontend Setup
+#### 5. **API Design**
+- RESTful endpoints with clear resource naming
+- Consistent error handling and status codes
+- Automatic OpenAPI documentation
+- Request/response validation with Pydantic
 
-1. **Navigate to frontend directory**
-   ```bash
-   cd frontend
-   ```
+#### 6. **Frontend State Management**
+- Local state with React hooks
+- Authentication state in localStorage
+- API service layer for data fetching
+- Protected routes with authentication checks
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+## 🌟 Key Features
 
-3. **Start development server**
-   ```bash
-   npm start
-   ```
+### Core Functionality
+- ✅ **User Authentication** - Secure login with JWT tokens
+- ✅ **Role-Based Access** - Manager and Employee roles with different permissions
+- ✅ **Feedback Creation** - Managers can submit structured feedback for team members
+- ✅ **Feedback Management** - View, edit, and acknowledge feedback
+- ✅ **Dashboard Analytics** - Comprehensive insights for both roles
+- ✅ **Sentiment Analysis** - Track feedback sentiment (positive/neutral/negative)
+- ✅ **Responsive Design** - Works seamlessly on desktop and mobile
 
-The frontend will be available at `http://localhost:3000`
+### Manager Features
+- Create and edit feedback for team members
+- View team dashboard with analytics
+- Track acknowledgment rates
+- Manage team member relationships
 
-### Docker Setup
+### Employee Features  
+- View received feedback
+- Acknowledge feedback items
+- Personal dashboard with feedback insights
+- Track feedback history and trends
 
-1. **Build and run with Docker Compose**
-   ```bash
-   docker-compose up --build
-   ```
+### Technical Features
+- RESTful API with automatic documentation
+- Real-time form validation
+- Error handling and user notifications
+- Docker containerization
+- GitHub Pages deployment ready
+- Demo mode for showcasing
 
 ## 📋 API Documentation
 
-Once the backend is running, visit `http://localhost:8000/docs` for the interactive API documentation.
+The backend provides a comprehensive REST API:
 
-### Key Endpoints
-- `POST /token` - Login and get access token
-- `POST /users/` - Register new user
+### Authentication Endpoints
+- `POST /token` - User login (returns JWT token)
 - `GET /users/me` - Get current user info
-- `GET /teams/my-team` - Get team members (managers only)
+
+### User Management
+- `POST /users/` - Create new user (registration)
+- `GET /users/` - List all users (admin)
+- `GET /teams/my-team` - Get manager's team members
+
+### Feedback Operations
 - `POST /feedback/` - Create feedback (managers only)
-- `GET /feedback/` - Get feedback (role-based)
+- `GET /feedback/` - Get feedback (role-based filtering)
 - `PUT /feedback/{id}` - Update feedback (managers only)
 - `POST /feedback/{id}/acknowledge` - Acknowledge feedback (employees only)
-- `GET /dashboard/manager` - Manager dashboard
-- `GET /dashboard/employee` - Employee dashboard
+
+### Dashboard Data
+- `GET /dashboard/manager` - Manager dashboard analytics
+- `GET /dashboard/employee` - Employee dashboard analytics
+
+**Live API Documentation:** http://localhost:8000/docs (when running locally)
+
+## 🐳 Docker Deployment
+
+### Backend Dockerfile
+The backend includes a production-ready Dockerfile with the following features:
+- **Multi-stage build** for optimized image size
+- **Non-root user** for enhanced security  
+- **Health checks** for container monitoring
+- **System dependencies** for Python packages
+
+```dockerfile
+# Build and run backend only
+cd backend
+docker build -t feedback-backend .
+docker run -p 8000:8000 feedback-backend
+```
+
+### Full Stack with Docker Compose
+```bash
+# Build and run both backend and frontend
+docker-compose up --build
+
+# Run in detached mode
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop services
+docker-compose down
+```
+
+### Production Docker Setup
+```bash
+# Use production Docker Compose file
+docker-compose -f docker-compose.prod.yml up --build
+```
+
+The production setup includes:
+- **Nginx** reverse proxy for frontend
+- **Optimized builds** for both services
+- **Health checks** and restart policies
+- **Volume mounts** for persistent data
 
 ## 👥 Demo Accounts
 
@@ -170,30 +250,6 @@ npm start
 
 ### Database Management
 The SQLite database is automatically created when you first run the backend. Tables are created using SQLAlchemy's `create_all()` method.
-
-## 🐳 Docker Deployment
-
-### Backend Dockerfile
-```dockerfile
-FROM python:3.11-slim
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . .
-EXPOSE 8000
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
-```
-
-### Building and Running
-```bash
-# Backend only
-cd backend
-docker build -t feedback-backend .
-docker run -p 8000:8000 feedback-backend
-
-# Full stack with docker-compose
-docker-compose up --build
-```
 
 ## 🔧 Configuration
 

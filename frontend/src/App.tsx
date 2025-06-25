@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -12,7 +12,6 @@ import GiveFeedback from './pages/GiveFeedback';
 import { authService } from './services/api';
 
 function App() {
-  const isAuthenticated = authService.isAuthenticated();
   const isDemoMode = process.env.REACT_APP_DEMO_MODE === 'true';
 
   return (
@@ -23,40 +22,25 @@ function App() {
             🚀 <strong>Demo Mode:</strong> This is a demonstration. Use <strong>manager@example.com</strong> or <strong>employee@example.com</strong> with password <strong>password123</strong>
           </div>
         )}
-        {isAuthenticated && <Navbar />}
-        <main className={isAuthenticated ? 'pt-0' : ''}>
+        <main>
           <Routes>
-            <Route 
-              path="/login" 
-              element={
-                isAuthenticated ? <Navigate to="/dashboard" replace /> : <Login />
-              } 
-            />
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/feedback"
-              element={
-                <ProtectedRoute>
-                  <FeedbackList />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/feedback/new"
-              element={
-                <ProtectedRoute requiredRole="manager">
-                  <GiveFeedback />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/feedback" element={
+              <ProtectedRoute>
+                <FeedbackList />
+              </ProtectedRoute>
+            } />
+            <Route path="/feedback/new" element={
+              <ProtectedRoute requiredRole="manager">
+                <GiveFeedback />
+              </ProtectedRoute>
+            } />
+            <Route path="/" element={<Navigate to="/login" replace />} />
           </Routes>
         </main>
         <ToastContainer
