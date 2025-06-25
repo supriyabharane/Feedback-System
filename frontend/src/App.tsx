@@ -13,10 +13,16 @@ import { authService } from './services/api';
 
 function App() {
   const isAuthenticated = authService.isAuthenticated();
+  const isDemoMode = process.env.REACT_APP_DEMO_MODE === 'true';
 
   return (
     <Router>
       <div className="min-h-screen bg-gray-50">
+        {isDemoMode && (
+          <div className="bg-blue-600 text-white text-center py-2 px-4 text-sm">
+            🚀 <strong>Demo Mode:</strong> This is a demonstration. Use <strong>manager@example.com</strong> or <strong>employee@example.com</strong> with password <strong>password123</strong>
+          </div>
+        )}
         {isAuthenticated && <Navbar />}
         <main className={isAuthenticated ? 'pt-0' : ''}>
           <Routes>
