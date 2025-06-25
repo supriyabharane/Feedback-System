@@ -2,6 +2,7 @@
   "name": "feedback-system-frontend",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://supriyabharane.github.io/Feedback-System",
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
     "@types/node": "^16.18.68",
@@ -25,7 +26,9 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -47,6 +50,7 @@
   },
   "proxy": "http://localhost:8000",
   "devDependencies": {
+    "gh-pages": "^6.3.0",
     "react-app-rewired": "^2.2.1"
   }
 }

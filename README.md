@@ -209,6 +209,41 @@ ACCESS_TOKEN_EXPIRE_MINUTES=30
 ### Frontend Configuration
 The frontend automatically proxies API requests to `http://localhost:8000` in development.
 
+## 🌐 GitHub Pages Deployment
+
+Deploy the React frontend to GitHub Pages:
+
+### Prerequisites
+- Backend must be deployed to a public URL (Render, Railway, etc.)
+- Update `REACT_APP_API_URL` in `frontend/.env.production` with your backend URL
+
+### Deploy Frontend
+
+1. **Update backend URL**
+   ```bash
+   # Edit frontend/.env.production
+   REACT_APP_API_URL=https://your-backend-url.onrender.com
+   ```
+
+2. **Deploy to GitHub Pages**
+   ```bash
+   cd frontend
+   npm run deploy
+   ```
+
+3. **Or use the deployment script**
+   ```bash
+   ./deploy-frontend.sh
+   ```
+
+The frontend will be available at: `https://supriyabharane.github.io/Feedback-System`
+
+### Important Notes
+- GitHub Pages can only host static sites (frontend only)
+- The backend must be deployed separately to a cloud service
+- Update CORS settings in the backend to allow your GitHub Pages domain
+- Demo accounts will only work if the backend is running and accessible
+
 ## 🤝 Contributing
 
 1. Fork the repository
