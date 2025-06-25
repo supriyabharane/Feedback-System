@@ -27,7 +27,9 @@ allowed_origins = [
     # Add your production frontend URLs here
     "https://your-frontend-app.onrender.com",
     "https://your-frontend-app.vercel.app",
-    "https://your-custom-domain.com"
+    "https://your-custom-domain.com",
+    # GitHub Pages domain
+    "https://supriyabharane.github.io"
 ]
 
 # For production, you might want to be more restrictive

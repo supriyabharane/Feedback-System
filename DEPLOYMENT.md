@@ -4,7 +4,40 @@ This guide covers multiple deployment options for your Feedback System.
 
 ## 🚀 Quick Deploy Options
 
-### Option 1: Render (Recommended - Free Tier Available)
+### Option 1: GitHub Pages (Frontend) + Cloud Backend
+
+#### Frontend on GitHub Pages:
+1. **Configure package.json** (already done):
+   ```json
+   {
+     "homepage": "https://supriyabharane.github.io/Feedback-System",
+     "scripts": {
+       "predeploy": "npm run build",
+       "deploy": "gh-pages -d build"
+     }
+   }
+   ```
+
+2. **Set production API URL**:
+   ```bash
+   # Edit frontend/.env.production
+   REACT_APP_API_URL=https://your-backend-url.onrender.com
+   ```
+
+3. **Deploy**:
+   ```bash
+   cd frontend
+   npm run deploy
+   ```
+   
+   **Live URL:** https://supriyabharane.github.io/Feedback-System
+
+#### Backend on Render/Railway:
+- Deploy backend to Render or Railway (see options below)
+- Update frontend `.env.production` with backend URL
+- Redeploy frontend: `npm run deploy`
+
+### Option 2: Render (Full Stack - Free Tier Available)
 
 #### Backend Deployment on Render:
 1. Create account at [render.com](https://render.com)
@@ -24,7 +57,7 @@ This guide covers multiple deployment options for your Feedback System.
    - **Build Command:** `npm install && npm run build`
    - **Publish Directory:** `build`
 
-### Option 2: Railway
+### Option 3: Railway
 
 #### Backend on Railway:
 ```bash
@@ -47,7 +80,7 @@ cd frontend
 vercel
 ```
 
-### Option 3: Docker Deployment
+### Option 4: Docker Deployment
 
 #### Using Docker Compose:
 ```bash
