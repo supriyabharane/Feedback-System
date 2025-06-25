@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.css": "/Feedback-System/static/css/main.74208237.css",
-    "main.js": "/Feedback-System/static/js/main.2a8a2a65.js",
+    "main.css": "/Feedback-System/static/css/main.4f1f363c.css",
+    "main.js": "/Feedback-System/static/js/main.b78bf220.js",
     "index.html": "/Feedback-System/index.html"
   },
   "entrypoints": [
-    "static/css/main.74208237.css",
-    "static/js/main.2a8a2a65.js"
+    "static/css/main.4f1f363c.css",
+    "static/js/main.b78bf220.js"
   ]
 }
