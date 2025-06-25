@@ -21,9 +21,23 @@ models.Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Feedback System API", version="1.0.0")
 
 # CORS middleware
+allowed_origins = [
+    "http://localhost:3000",
+    "http://localhost:5173",
+    # Add your production frontend URLs here
+    "https://your-frontend-app.onrender.com",
+    "https://your-frontend-app.vercel.app",
+    "https://your-custom-domain.com"
+]
+
+# For production, you might want to be more restrictive
+if os.getenv("ENVIRONMENT") == "production":
+    # Only allow specific production origins
+    allowed_origins = [origin for origin in allowed_origins if not origin.startswith("http://localhost")]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
